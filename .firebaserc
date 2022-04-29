@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "organic-shop-angular": {
+      "hosting": {
+        "organic-shop": [
+          "organic-shop-angular"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "organic-shop-angular"
+  }
+}
