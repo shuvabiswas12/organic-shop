@@ -30,6 +30,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AuthService } from './services/auth.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
     MyOrdersComponent,
     OrderSuccessComponent,
     CheckOutComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
