@@ -48,20 +48,22 @@
                 >
                   My Orders
                 </button>
-                <button
-                  ngbDropdownItem
-                  routerLink="/admin/orders"
-                  id="dropdown-item"
-                >
-                  Manage Orders
-                </button>
-                <button
-                  ngbDropdownItem
-                  routerLink="/admin/products"
-                  id="dropdown-item"
-                >
-                  Manage Products
-                </button>
+                <ng-container *ngIf="appUser?.isAdmin">
+                  <button
+                    ngbDropdownItem
+                    routerLink="/admin/orders"
+                    id="dropdown-item"
+                  >
+                    Manage Orders
+                  </button>
+                  <button
+                    ngbDropdownItem
+                    routerLink="/admin/products"
+                    id="dropdown-item"
+                  >
+                    Manage Products
+                  </button>
+                </ng-container>
                 <button (click)="logout()" ngbDropdownItem id="dropdown-item">
                   Logout
                 </button>

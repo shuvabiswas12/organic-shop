@@ -1,11 +1,11 @@
 export const environment = {
   firebase: {
-    projectId: 'organic-shop-angular',
-    appId: '1:863981859754:web:457347aedc0cffb2a4f1d3',
-    storageBucket: 'organic-shop-angular.appspot.com',
-    apiKey: 'AIzaSyCaU52vr4W76qQ8-7dicYQXSCX0VaCl2Vk',
-    authDomain: 'organic-shop-angular.firebaseapp.com',
-    messagingSenderId: '863981859754',
+    apiKey: 'AIzaSyC5uLz7LrS8RL8b4uHMxJqBIrYdBRr-Oas',
+    authDomain: 'organic-shop-21df9.firebaseapp.com',
+    projectId: 'organic-shop-21df9',
+    storageBucket: 'organic-shop-21df9.appspot.com',
+    messagingSenderId: '254842034700',
+    appId: '1:254842034700:web:55011116c6ceddf7742c29',
   },
-  production: true
+  production: true,
 };
