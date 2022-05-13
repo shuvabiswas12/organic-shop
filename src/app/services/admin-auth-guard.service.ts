@@ -1,5 +1,5 @@
 import { AppUser } from './../models/AppUser';
-import { map, switchMap } from 'rxjs';
+import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,

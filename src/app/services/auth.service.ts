@@ -27,8 +27,9 @@ export class AuthService {
 
     // this returnUrl name that we were selected in the auth gueard service as an optional route.
 
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-    localStorage.setItem('returnUrl', returnUrl);
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (returnUrl) localStorage.setItem('returnUrl', returnUrl);
+    else localStorage.removeItem('returnUrl');
 
     this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }

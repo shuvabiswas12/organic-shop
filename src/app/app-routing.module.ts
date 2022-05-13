@@ -13,51 +13,50 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'shopping-cart', component: ShoppingCartComponent },
+
+  {
+    path: 'my/orders',
+    component: MyOrdersComponent,
+    canActivate: [AuthGuardService],
+  },
+
+  {
+    path: 'order-success',
+    component: OrderSuccessComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'checkout',
+    component: CheckOutComponent,
+    canActivate: [AuthGuardService],
+  },
+
+  {
+    path: 'admin/products',
+    component: AdminProductsComponent,
+    canActivate: [AuthGuardService, AdminAuthGuardService],
+  },
+
+  {
+    path: 'admin/products/new',
+    component: ProductFormComponent,
+    canActivate: [AuthGuardService, AdminAuthGuardService],
+  },
+
+  {
+    path: 'admin/orders',
+    component: AdminOrdersComponent,
+    canActivate: [AuthGuardService, AdminAuthGuardService],
+  },
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'shopping-cart', component: ShoppingCartComponent },
-
-      {
-        path: 'my/orders',
-        component: MyOrdersComponent,
-        canActivate: [AuthGuardService],
-      },
-
-      {
-        path: 'admin/products/new',
-        component: ProductFormComponent,
-        canActivate: [AuthGuardService, AdminAuthGuardService],
-      },
-
-      {
-        path: 'order-success',
-        component: OrderSuccessComponent,
-        canActivate: [AuthGuardService],
-      },
-      {
-        path: 'checkout',
-        component: CheckOutComponent,
-        canActivate: [AuthGuardService],
-      },
-
-      {
-        path: 'admin/products',
-        component: AdminProductsComponent,
-        canActivate: [AuthGuardService, AdminAuthGuardService],
-      },
-      {
-        path: 'admin/orders',
-        component: AdminOrdersComponent,
-        canActivate: [AuthGuardService, AdminAuthGuardService],
-      },
-    ]),
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

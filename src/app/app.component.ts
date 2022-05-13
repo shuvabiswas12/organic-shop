@@ -26,10 +26,16 @@ export class AppComponent {
           // this will work when user want to access protected route without login
           // when they login app will automatically redirect to that url which he or she want to visit and hit before login
           let returnUrl: any = localStorage.getItem('returnUrl');
-          this.router.navigateByUrl(returnUrl);
-          return true;
+          console.log('Return URL = ' + returnUrl);
+
+          if (returnUrl) this.router.navigateByUrl(returnUrl);
+
+          // need to remove this returnUrl beacuse, If I am not to remove this returnUrl
+          // then, app will redirect that url each reloading time.
+          localStorage.removeItem('returnUrl');
+          // return true;
         }
-        return false;
+        // return false;
       },
     });
   }

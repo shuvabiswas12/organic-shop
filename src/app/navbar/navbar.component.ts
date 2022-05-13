@@ -9,13 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   appUser: AppUser | null = null;
-  constructor(public authService: AuthService) {
-    authService.appUser$.subscribe({
+  constructor(public authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authService.appUser$.subscribe({
       next: (user) => (this.appUser = user),
     });
   }
-
-  ngOnInit(): void {}
 
   logout() {
     this.authService.logout();
