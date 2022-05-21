@@ -1,24 +1,103 @@
-<form>
-  <div class="form-group mb-3">
-    <label for="title" class="form-label">Title</label>
-    <input type="text" id="title" class="form-control" />
+<div class="row">
+  <div class="col-md-6">
+    <form (ngSubmit)="save(f.value)" #f="ngForm">
+      <div class="form-group mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          #title="ngModel"
+          ngModel
+          name="title"
+          type="text"
+          id="title"
+          class="form-control"
+          minlength="4"
+          required
+        />
+        <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+          <div *ngIf="title.errors?.['required']">Title is required!</div>
+          <div *ngIf="title.errors?.['minlength']">
+            Title length should be min 4 chars.
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="price" class="form-label">Price</label>
+        <div class="input-group">
+          <span class="input-group-text">$</span>
+          <input
+            #price="ngModel"
+            ngModel
+            name="price"
+            type="number"
+            id="price"
+            class="form-control"
+            [min]="10"
+            required
+          />
+        </div>
+        <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+          <div *ngIf="price.errors?.['required']">Price is required!</div>
+          <div *ngIf="price.errors?.['min']">Minimum price should be $10.</div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select
+          #category="ngModel"
+          ngModel
+          name="category"
+          id="category"
+          class="form-select"
+          required
+        >
+          <option value=""></option>
+          <option
+            *ngFor="let category of categories$ | async"
+            [value]="category.value"
+          >
+            {{ category.name }}
+          </option>
+        </select>
+        <div
+          class="alert alert-danger"
+          *ngIf="category.touched && category.invalid"
+        >
+          Category is required!
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="imgUrl" class="form-label">ImageURL</label>
+        <input
+          #imageUrl="ngModel"
+          ngModel
+          name="imageUrl"
+          id="imgUrl"
+          class="form-control"
+          type="text"
+          url
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="imageUrl.touched && imageUrl.invalid || imageUrl.errors?.['url']"
+        >
+          <div *ngIf="imageUrl.errors?.['required']">Image url is required</div>
+          <div *ngIf="imageUrl.errors?.['url']">
+            Input text should be an url.
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary">Save</button>
+    </form>
   </div>
-  <div class="form-group mb-3">
-    <label for="price" class="form-label">Price</label>
-    <div class="input-group">
-      <span class="input-group-text">$</span>
-      <input type="number" id="price" class="form-control" />
+
+  <div class="col-md-6">
+    <div class="card mt-4" style="width: 20rem">
+      <img class="card-img-top" [src]="imageUrl.value" />
+      <div class="card-body">
+        <h5 class="card-title">{{ title.value }}</h5>
+        <p class="card-text">{{ price.value | currency: "USD":true }}</p>
+      </div>
     </div>
   </div>
-  <div class="form-group mb-3">
-    <label for="category" class="form-label">Category</label>
-    <select name="category" id="category" class="form-select">
-      <option value=""></option>
-    </select>
-  </div>
-  <div class="form-group mb-3">
-    <label for="imgUrl" class="form-label">ImageURL</label>
-    <input name="imageUrl" id="imgUrl" class="form-control" type="text" />
-  </div>
-  <button class="btn btn-primary">Save</button>
-</form>
+</div>
