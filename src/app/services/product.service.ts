@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Injectable } from '@angular/core';
 
@@ -12,6 +13,18 @@ export class ProductService {
   }
 
   getAll() {
-    return this.db.list('/products').valueChanges();
+    /**
+     * spanpshotChanges() has metadata but valueChanges() does not that.
+     * that is why, snapshotChanges() has the key of a firebase object.
+     */
+
+    return this.db
+      .list('/products')
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({ key: c.payload.key, value: c.payload.val() }))
+        )
+      );
   }
 }
