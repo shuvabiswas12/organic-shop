@@ -2,14 +2,26 @@
   <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
 
-<table class="table">
-  <tr>
-    <th>Title</th>
-    <th>Price</th>
-    <th></th>
-  </tr>
+<div class="my-4">
+  <input
+    type="text"
+    #query
+    (keyup)="filter(query.value)"
+    class="form-control"
+    placeholder="Search your food"
+  />
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
   <tbody>
-    <tr *ngFor="let product of products$ | async">
+    <tr *ngFor="let product of filteredProduct">
       <td>{{ product.value.title }}</td>
       <td>{{ product.value.price }}</td>
       <td>

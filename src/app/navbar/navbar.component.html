@@ -28,7 +28,7 @@
             >Shopping Cart</a
           >
         </li>
-        <li class="nav-item" *ngIf="!appUser">
+        <li class="nav-item" *ngIf="!appUser?.name">
           <a class="nav-link text-muted" routerLink="/login">Login</a>
         </li>
       </ul>

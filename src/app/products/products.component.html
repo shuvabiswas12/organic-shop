@@ -1,1 +1,34 @@
-<p>products works!</p>
+<div class="row">
+  <div class="col-3">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let category of categories$ | async">
+        {{ category.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="row">
+      <ng-container *ngFor="let p of products; let i = index">
+        <div class="col">
+          <div class="card my-2" style="width: 18rem">
+            <img
+              class="card-img-top"
+              src="{{ p.value.imageUrl }}"
+              height="200px"
+              width="100px"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ p.value.title }}</h5>
+              <p class="card-text">
+                {{ p.value.price | currency: "USD" }}
+              </p>
+              <a class="btn btn-primary">Add to card</a>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="(i + 1) % 2 === 0" class="w-25"></div>
+      </ng-container>
+    </div>
+  </div>
+</div>

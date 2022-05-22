@@ -27,4 +27,16 @@ export class ProductService {
         )
       );
   }
+
+  get(id: string) {
+    return this.db.object('/products/' + id).valueChanges();
+  }
+
+  update(productId: string, product: string) {
+    return this.db.object('/products/' + productId).update(product);
+  }
+
+  delete(productId: string) {
+    return this.db.object('/products/' + productId).remove();
+  }
 }

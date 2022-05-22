@@ -1,11 +1,11 @@
-<div class="row">
+<div class="row" *ngIf="product.length != 0">
   <div class="col-md-6">
     <form (ngSubmit)="save(f.value)" #f="ngForm">
       <div class="form-group mb-3">
         <label for="title" class="form-label">Title</label>
         <input
           #title="ngModel"
-          ngModel
+          [(ngModel)]="product.title"
           name="title"
           type="text"
           id="title"
@@ -26,7 +26,7 @@
           <span class="input-group-text">$</span>
           <input
             #price="ngModel"
-            ngModel
+            [(ngModel)]="product.price"
             name="price"
             type="number"
             id="price"
@@ -44,7 +44,7 @@
         <label for="category" class="form-label">Category</label>
         <select
           #category="ngModel"
-          ngModel
+          [(ngModel)]="product.category"
           name="category"
           id="category"
           class="form-select"
@@ -69,7 +69,7 @@
         <label for="imgUrl" class="form-label">ImageURL</label>
         <input
           #imageUrl="ngModel"
-          ngModel
+          [(ngModel)]="product.imageUrl"
           name="imageUrl"
           id="imgUrl"
           class="form-control"
@@ -88,15 +88,23 @@
         </div>
       </div>
       <button class="btn btn-primary">Save</button>
+      <button
+        type="button"
+        *ngIf="productId"
+        (click)="delete()"
+        class="btn btn-danger mx-2"
+      >
+        Delete
+      </button>
     </form>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-6" *ngIf="imageUrl.value || title.value || price.value">
     <div class="card mt-4" style="width: 20rem">
-      <img class="card-img-top" [src]="imageUrl.value" />
+      <img class="card-img-top" [src]="imageUrl.value" *ngIf="imageUrl.value" />
       <div class="card-body">
         <h5 class="card-title">{{ title.value }}</h5>
-        <p class="card-text">{{ price.value | currency: "USD":true }}</p>
+        <p class="card-text">{{ price.value | currency: "USD" }}</p>
       </div>
     </div>
   </div>
