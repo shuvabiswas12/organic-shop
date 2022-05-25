@@ -28,7 +28,10 @@
             >Shopping Cart</a
           >
         </li>
-        <li class="nav-item" *ngIf="!appUser?.name">
+        <li
+          class="nav-item"
+          *ngIf="shouldShowLogin && !(authService.user$ | async)"
+        >
           <a class="nav-link text-muted" routerLink="/login">Login</a>
         </li>
       </ul>
