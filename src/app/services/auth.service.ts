@@ -35,6 +35,7 @@ export class AuthService {
     const guser = await this.afAuth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
+
     // @ts-ignore
     this.saveToken(guser.credential?.accessToken);
     this.routeNavigate.navigate(['/']);
@@ -51,6 +52,7 @@ export class AuthService {
   logout() {
     this.afAuth.signOut();
     localStorage.removeItem('TOKEN');
+    this.routeNavigate.navigate(['/']);
   }
 
   get appUser$() {
