@@ -1,14 +1,27 @@
 <div class="row">
   <div class="col-3">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let category of categories$ | async">
+    <div class="list-group">
+      <a
+        *ngIf="categories$ | async"
+        class="list-group-item"
+        routerLink="/products"
+        [class.active]="!selectedCategory"
+        >All categories</a
+      >
+      <a
+        routerLink="/products"
+        [queryParams]="{ category: category.value }"
+        class="list-group-item"
+        [routerLinkActive]="['active']"
+        *ngFor="let category of categories$ | async"
+      >
         {{ category.name }}
-      </li>
-    </ul>
+      </a>
+    </div>
   </div>
   <div class="col">
     <div class="row">
-      <ng-container *ngFor="let p of products; let i = index">
+      <ng-container *ngFor="let p of filteredProducts; let i = index">
         <div class="col">
           <div class="card my-2" style="width: 18rem">
             <img
