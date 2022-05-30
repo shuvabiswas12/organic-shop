@@ -1,4 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from 'src/app/services/category.service';
 import { Subscription, switchMap } from 'rxjs';
 import { ProductService } from './../services/product.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -13,6 +14,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[];
   filteredProducts: Product[];
   subscription: Subscription;
+  selectedCategory: string | null = null;
 
   constructor(
     private router: ActivatedRoute,
@@ -31,9 +33,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (params) => {
-          this.filteredProducts = params.get('category')
+          this.selectedCategory = params.get('category');
+          this.filteredProducts = this.selectedCategory
             ? this.products.filter(
-                (p) => p.value.category === params.get('category')
+                (p) => p.value.category === this.selectedCategory
               )
             : this.products;
         },

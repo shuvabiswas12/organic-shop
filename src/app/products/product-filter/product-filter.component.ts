@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -9,16 +9,13 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class ProductFilterComponent implements OnInit {
   categories$: any;
-  selectedCategory: string | null = null;
+  @Input('selectedCategory') selectedCategory: string | null = null;
 
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute
   ) {
     this.categories$ = this.categoryService.getCategories();
-    this.route.queryParamMap.subscribe({
-      next: (params) => (this.selectedCategory = params.get('category')),
-    });
   }
 
   ngOnInit(): void {}
