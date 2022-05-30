@@ -1,5 +1,4 @@
 import { ActivatedRoute } from '@angular/router';
-import { CategoryService } from 'src/app/services/category.service';
 import { Subscription, switchMap } from 'rxjs';
 import { ProductService } from './../services/product.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -13,14 +12,11 @@ import { Product } from '../models/Product';
 export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[];
   filteredProducts: Product[];
-  categories$: any;
   subscription: Subscription;
-  selectedCategory: string | null = null;
 
   constructor(
     private router: ActivatedRoute,
-    private productService: ProductService,
-    private categoryService: CategoryService
+    private productService: ProductService
   ) {
     this.products = [];
     this.filteredProducts = [];
@@ -35,16 +31,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (params) => {
-          this.selectedCategory = params.get('category');
-          this.filteredProducts = this.selectedCategory
+          this.filteredProducts = params.get('category')
             ? this.products.filter(
-                (p) => p.value.category === this.selectedCategory
+                (p) => p.value.category === params.get('category')
               )
             : this.products;
         },
       });
-
-    this.categories$ = this.categoryService.getCategories();
   }
 
   ngOnDestroy(): void {

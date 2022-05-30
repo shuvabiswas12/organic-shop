@@ -1,23 +1,6 @@
 <div class="row">
   <div class="col-3">
-    <div class="list-group">
-      <a
-        *ngIf="categories$ | async"
-        class="list-group-item"
-        routerLink="/products"
-        [class.active]="!selectedCategory"
-        >All categories</a
-      >
-      <a
-        routerLink="/products"
-        [queryParams]="{ category: category.value }"
-        class="list-group-item"
-        [routerLinkActive]="['active']"
-        *ngFor="let category of categories$ | async"
-      >
-        {{ category.name }}
-      </a>
-    </div>
+    <app-product-filter></app-product-filter>
   </div>
   <div class="col">
     <div class="row">
