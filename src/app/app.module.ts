@@ -36,6 +36,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './products/product-card/product-card.component';
+import { AdminProductCardComponent } from './admin/product-form/admin-product-card/admin-product-card.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
     CheckOutComponent,
     ProductFormComponent,
     ProductFilterComponent,
+    ProductCardComponent,
+    AdminProductCardComponent,
   ],
   imports: [
     BrowserModule,

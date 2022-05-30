@@ -100,12 +100,6 @@
   </div>
 
   <div class="col-md-6" *ngIf="imageUrl.value || title.value || price.value">
-    <div class="card mt-4" style="width: 20rem">
-      <img class="card-img-top" [src]="imageUrl.value" *ngIf="imageUrl.value" />
-      <div class="card-body">
-        <h5 class="card-title">{{ title.value }}</h5>
-        <p class="card-text">{{ price.value | currency: "USD" }}</p>
-      </div>
-    </div>
+    <admin-product-card [product]="product"></admin-product-card>
   </div>
 </div>

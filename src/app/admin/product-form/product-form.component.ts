@@ -25,6 +25,7 @@ export class ProductFormComponent implements OnInit {
   ) {
     this.categories$ = categoryService.getCategories();
     this.edit();
+    console.log('Product', this.product);
   }
 
   ngOnInit(): void {}
