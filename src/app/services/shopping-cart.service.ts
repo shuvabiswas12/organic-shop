@@ -1,7 +1,9 @@
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Observable } from 'rxjs/internal/Observable';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/Product';
 import { take } from 'rxjs';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +32,8 @@ export class ShoppingCartService {
     return this.db.object('/shopping-carts/' + cartID + '/items/' + productKey);
   }
 
-  async getCart() {
+  // Instead of angularFireOvservableObject we are using angularFireObject<> here.
+  async getCart(): Promise<AngularFireObject<ShoppingCart>> {
     let cartID = await this.getOrCreatecartID();
     return this.db.object('/shopping-carts/' + cartID);
   }
