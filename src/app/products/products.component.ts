@@ -1,5 +1,4 @@
 import { ActivatedRoute } from '@angular/router';
-import { CategoryService } from 'src/app/services/category.service';
 import { Subscription, switchMap } from 'rxjs';
 import { ProductService } from './../services/product.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
