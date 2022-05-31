@@ -9,11 +9,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductCardComponent implements OnInit {
   @Input('product') product: any = {};
+  @Input('shopping-cart') shoppingCart: any;
 
   constructor(private cartService: ShoppingCartService) {}
 
   addToCart(addedProduct: Product) {
     this.cartService.addToCart(addedProduct);
+  }
+
+  getQuantity() {
+    if (!this.shoppingCart) return 0;
+    let item = this.shoppingCart.items[this.product.key];
+    return item ? item.quantity : 0;
   }
 
   ngOnInit(): void {}

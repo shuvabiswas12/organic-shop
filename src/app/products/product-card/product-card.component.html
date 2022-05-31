@@ -5,8 +5,25 @@
     <p class="card-text">
       {{ product.value.price | currency: "USD" }}
     </p>
-    <a class="btn btn-primary w-100" (click)="addToCart(product)"
-      >Add to card</a
+    <button
+      class="btn btn-secondary w-100"
+      (click)="addToCart(product)"
+      *ngIf="getQuantity() === 0; else updateQuantity"
     >
+      Add to card
+    </button>
+    <ng-template #updateQuantity>
+      <div class="row">
+        <div class="col-2">
+          <button class="btn btn-secondary btn-block">-</button>
+        </div>
+        <div class="col text-center bg-muted pt-1 text-white">
+          {{ getQuantity() }} in carts
+        </div>
+        <div class="col-2">
+          <button class="btn btn-secondary btn-block">+</button>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>
