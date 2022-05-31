@@ -26,27 +26,23 @@ export class ShoppingCartService {
     return result.key;
   }
 
-  async addToCart(product: Product) {
-    let cartId = await this.getOrCreatecartID();
-    let items$ = this.db.object(
-      '/shopping-carts/' + cartId + '/items/' + product.key
-    );
+  getItem(cartID: string, productKey: string) {
+    return this.db.object('/shopping-carts/' + cartID + '/items/' + productKey);
+  }
 
-    if (items$) {
-      items$
-        .valueChanges()
-        .pipe(take(1))
-        .subscribe({
-          next: (item: any) => {
-            if (item) {
-              items$.update({
-                quantity: item.quantity + 1,
-              });
-            } else {
-              items$.set({ product: product, quantity: 1 });
-            }
-          },
-        });
-    }
+  async addToCart(product: Product) {
+    let cartId = (await this.getOrCreatecartID()) || '';
+    let items$ = this.getItem(cartId, product.key);
+
+    items$
+      .valueChanges()
+      .pipe(take(1))
+      .subscribe({
+        next: (item: any) =>
+          items$.update({
+            product: product,
+            quantity: (item?.quantity || 0) + 1,
+          }),
+      });
   }
 }
