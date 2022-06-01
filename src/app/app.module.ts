@@ -40,6 +40,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { AdminProductCardComponent } from './admin/product-form/admin-product-card/admin-product-card.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ChangeProductQuantityComponent } from './change-product-quantity/change-product-quantity.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ProductCardComponent,
     AdminProductCardComponent,
     SpinnerComponent,
+    ChangeProductQuantityComponent,
   ],
   imports: [
     BrowserModule,

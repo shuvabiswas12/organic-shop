@@ -1,8 +1,12 @@
+import { ShoppingCartItem } from './../models/shopping-cart-item';
 import { Observable } from 'rxjs/internal/Observable';
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
+import {
+  AngularFireDatabase,
+  AngularFireObject,
+} from '@angular/fire/compat/database';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/Product';
-import { take } from 'rxjs';
+import { take, map } from 'rxjs';
 import { ShoppingCart } from '../models/shopping-cart';
 
 @Injectable({
@@ -33,9 +37,29 @@ export class ShoppingCartService {
   }
 
   // Instead of angularFireOvservableObject we are using angularFireObject<> here.
-  async getCart(): Promise<AngularFireObject<ShoppingCart>> {
+  // async getCart(): Promise<AngularFireObject<ShoppingCart>> {
+  //   let cartID = await this.getOrCreatecartID();
+  //   return this.db.object('/shopping-carts/' + cartID);
+  // }
+
+  async getCart(): Promise<Observable<ShoppingCart>> {
     let cartID = await this.getOrCreatecartID();
-    return this.db.object('/shopping-carts/' + cartID);
+    return this.db
+      .object('/shopping-carts/' + cartID)
+      .valueChanges() as Observable<ShoppingCart>;
+  }
+
+  async getShoppingCartItemsCount() {
+    return (await this.getCart()).pipe(
+      map((cart) => {
+        let shoppingCartItemCount = 0;
+        for (let productId in cart.items) {
+          shoppingCartItemCount =
+            shoppingCartItemCount + cart.items[productId].quantity;
+        }
+        return shoppingCartItemCount;
+      })
+    );
   }
 
   removeQuantity(product: Product) {

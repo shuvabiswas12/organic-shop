@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -6,7 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.css'],
 })
 export class ShoppingCartComponent implements OnInit {
-  constructor() {}
+  shoppingCartItemCount: number = 0;
+  shouldSpinnerStopped: boolean = false;
+  items!: any[];
+  productIds!: any[];
 
-  ngOnInit(): void {}
+  constructor(private shoppingCartService: ShoppingCartService) {}
+
+  getProductIds() {}
+
+  async ngOnInit() {
+    let cart$ = await this.shoppingCartService.getCart();
+    cart$.subscribe({
+      next: (cart) => {
+        this.shoppingCartItemCount = 0;
+        this.items = cart.items;
+        this.productIds = Object.keys(cart.items);
+
+        for (let productId in cart.items) {
+          this.shoppingCartItemCount =
+            this.shoppingCartItemCount + cart.items[productId].quantity;
+        }
+
+        this.shouldSpinnerStopped = true;
+      },
+    });
+  }
 }

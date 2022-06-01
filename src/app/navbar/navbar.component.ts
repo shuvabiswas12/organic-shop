@@ -3,6 +3,7 @@ import { ShoppingCartService } from './../services/shopping-cart.service';
 import { AppUser } from './../models/AppUser';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ export class NavbarComponent implements OnInit {
   appUser: AppUser;
   shouldShowLogin: boolean;
   shoppingCartItemCount: number = 0;
+  cart$!: Observable<ShoppingCart>;
 
   constructor(
     public authService: AuthService,
@@ -31,15 +33,8 @@ export class NavbarComponent implements OnInit {
 
     this.shouldShowLogin = !this.authService.isTokenAvailable();
 
-    let cart$ = await this.shoppingCartService.getCart();
-    cart$.valueChanges().subscribe({
-      next: (cart: any) => {
-        this.shoppingCartItemCount = 0;
-        for (let productId in cart.items) {
-          this.shoppingCartItemCount =
-            this.shoppingCartItemCount + cart.items[productId].quantity;
-        }
-      },
+    this.shoppingCartService.getShoppingCartItemsCount().then((value) => {
+      value.subscribe((val) => (this.shoppingCartItemCount = val));
     });
   }
 

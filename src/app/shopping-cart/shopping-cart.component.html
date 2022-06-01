@@ -1,1 +1,44 @@
-<p>shopping-cart works!</p>
+<h1>Shopping Cart</h1>
+
+<app-spinner [is-show]="!shouldSpinnerStopped"></app-spinner>
+<p *ngIf="shouldSpinnerStopped && shoppingCartItemCount === 0">
+  You have {{ shoppingCartItemCount }} items in your shopping cart.
+</p>
+
+<div class="row" *ngIf="shoppingCartItemCount !== 0">
+  <p>You have {{ shoppingCartItemCount }} items in your shopping cart.</p>
+  <div class="col-7">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let productId of productIds">
+          <td *ngIf="items[productId].quantity !== 0">
+            {{ items[productId].product.value.title }}
+          </td>
+          <td *ngIf="items[productId].quantity !== 0">
+            <app-change-product-quantity
+              [product]="items[productId].product"
+              [quantity]="items[productId].quantity"
+            ></app-change-product-quantity>
+          </td>
+          <td *ngIf="items[productId].quantity !== 0">
+            {{ items[productId].product.value.price | currency: "USD":true }} *
+            {{ items[productId].quantity }}
+
+            =
+            {{
+              items[productId].product.value.price * items[productId].quantity
+                | currency: "USD":true
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
