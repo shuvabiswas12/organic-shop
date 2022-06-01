@@ -1,4 +1,5 @@
 <div class="row">
+  <app-spinner [is-show]="filteredProducts.length === 0"></app-spinner>
   <div class="col-3">
     <app-product-filter
       [selectedCategory]="selectedCategory"

@@ -39,6 +39,7 @@ import { CustomFormsModule } from 'ng2-validation';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { AdminProductCardComponent } from './admin/product-form/admin-product-card/admin-product-card.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AdminProductCardComponent } from './admin/product-form/admin-product-ca
     ProductFilterComponent,
     ProductCardComponent,
     AdminProductCardComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
