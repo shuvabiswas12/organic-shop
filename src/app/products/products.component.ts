@@ -17,6 +17,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   selectedCategory: string | null = null;
   subscription2: any = null;
   cart: any;
+  shouldSpinnerShows: boolean;
 
   constructor(
     private router: ActivatedRoute,
@@ -25,6 +26,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ) {
     this.products = [];
     this.filteredProducts = [];
+    this.shouldSpinnerShows = true;
 
     this.subscription = this.productService
       .getAll()
@@ -42,6 +44,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
                 (p) => p.value.category === this.selectedCategory
               )
             : this.products;
+          this.shouldSpinnerShows = false;
         },
       });
   }

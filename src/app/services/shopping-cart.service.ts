@@ -42,11 +42,16 @@ export class ShoppingCartService {
   //   return this.db.object('/shopping-carts/' + cartID);
   // }
 
+  // by rich model's way...
   async getCart(): Promise<Observable<ShoppingCart>> {
     let cartID = await this.getOrCreatecartID();
     return this.db
       .object('/shopping-carts/' + cartID)
-      .valueChanges() as Observable<ShoppingCart>;
+      .valueChanges()
+      .pipe(map((cart) => new ShoppingCart((cart as ShoppingCart).items)));
+
+    // this is how rich model works. if we have not write 'new ShoppingCart()' here
+    // then rich model functionality will not work
   }
 
   async getShoppingCartItemsCount() {

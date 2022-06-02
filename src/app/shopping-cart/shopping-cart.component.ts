@@ -1,4 +1,6 @@
+import { ShoppingCartItem } from './../models/shopping-cart-item';
 import { Component, OnInit } from '@angular/core';
+import { ShoppingCart } from '../models/shopping-cart';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
@@ -9,8 +11,9 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 export class ShoppingCartComponent implements OnInit {
   shoppingCartItemCount: number = 0;
   shouldSpinnerStopped: boolean = false;
-  items!: any[];
+  items: ShoppingCartItem[] = [];
   productIds!: any[];
+  totalPrice!: number;
 
   constructor(private shoppingCartService: ShoppingCartService) {}
 
@@ -20,14 +23,18 @@ export class ShoppingCartComponent implements OnInit {
     let cart$ = await this.shoppingCartService.getCart();
     cart$.subscribe({
       next: (cart) => {
-        this.shoppingCartItemCount = 0;
+        this.totalPrice = cart.totalPrice;
+
         this.items = cart.items;
+
         this.productIds = Object.keys(cart.items);
 
-        for (let productId in cart.items) {
-          this.shoppingCartItemCount =
-            this.shoppingCartItemCount + cart.items[productId].quantity;
-        }
+        //for (let productId in cart.items) {
+          // this.shoppingCartItemCount =
+          //   this.shoppingCartItemCount + cart.items[productId].quantity;
+        //}
+
+        this.shoppingCartItemCount = cart.totalSelectedItemsCount;
 
         this.shouldSpinnerStopped = true;
       },

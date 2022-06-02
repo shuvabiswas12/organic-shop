@@ -27,9 +27,9 @@
           <a class="nav-link text-muted" routerLink="/shopping-cart"
             >Shopping Cart
             <span
-              *ngIf="shoppingCartItemCount"
-              class="badge rounded-pill bg-danger"
-              >{{ shoppingCartItemCount }}</span
+              *ngIf="cart$ | async as cart"
+              class="badge rounded-pill bg-warning"
+              >{{ cart.totalSelectedItemsCount }}</span
             >
           </a>
         </li>

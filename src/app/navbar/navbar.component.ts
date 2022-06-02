@@ -33,9 +33,20 @@ export class NavbarComponent implements OnInit {
 
     this.shouldShowLogin = !this.authService.isTokenAvailable();
 
-    this.shoppingCartService.getShoppingCartItemsCount().then((value) => {
-      value.subscribe((val) => (this.shoppingCartItemCount = val));
-    });
+    // this is the one way to get the total items count...
+
+    // this.shoppingCartService.getShoppingCartItemsCount().then((value) => {
+    //   value.subscribe((val) => (this.shoppingCartItemCount = val));
+    // });
+
+    // this is called wrapping and we have to unwrap this observable in html file using async pipe.
+    this.cart$ = await this.shoppingCartService.getCart();
+
+    // or we can write as like bellow...
+
+    // this.cart$.subscribe(
+    //   (cart) => (this.shoppingCartItemCount = cart.totalSelectedItemsCount)
+    // );
   }
 
   logout() {

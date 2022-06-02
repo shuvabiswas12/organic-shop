@@ -1,5 +1,6 @@
 <div class="row">
-  <app-spinner [is-show]="filteredProducts.length === 0"></app-spinner>
+  <app-spinner [is-show]="shouldSpinnerShows"></app-spinner>
+
   <div class="col-3">
     <app-product-filter
       [selectedCategory]="selectedCategory"
@@ -7,6 +8,12 @@
   </div>
   <div class="col">
     <div class="row">
+      <h2
+        class="text-danger text-center"
+        *ngIf="!shouldSpinnerShows && !filteredProducts.length"
+      >
+        No items.
+      </h2>
       <ng-container *ngFor="let p of filteredProducts; let i = index">
         <div class="col">
           <app-product-card
