@@ -21,6 +21,11 @@ export class ShoppingCartService {
     });
   }
 
+  async removeAllItems() {
+    let cardID = await this.getOrCreatecartID();
+    await this.db.object('/shopping-carts/' + cardID + '/items').remove();
+  }
+
   private async getOrCreatecartID(): Promise<string> {
     let cartId = localStorage.getItem('cartId');
 

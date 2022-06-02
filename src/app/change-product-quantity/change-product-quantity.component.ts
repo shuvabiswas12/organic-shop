@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
   @Input('product') product: any = {};
-  cart!: ShoppingCart;
+  cart: any;
   subscription!: Subscription;
   @Input('quantity') quantity!: number;
 
@@ -27,7 +27,9 @@ export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.subscription = (await this.shoppingCart.getCart()).subscribe({
-      next: (cart) => (this.cart = cart),
+      next: (cart) => {
+        if (cart) this.cart = cart;
+      },
     });
   }
 

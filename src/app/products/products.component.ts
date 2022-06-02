@@ -1,3 +1,4 @@
+import { ShoppingCart } from './../models/shopping-cart';
 import { ShoppingCartService } from './../services/shopping-cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, switchMap } from 'rxjs';
@@ -16,7 +17,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   selectedCategory: string | null = null;
   subscription2: any = null;
-  cart: any;
+  cart!: ShoppingCart;
   shouldSpinnerShows: boolean;
 
   constructor(
@@ -51,12 +52,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    this.subscription2.unsubscribe();
   }
 
   async ngOnInit() {
-    this.subscription2 = (await this.shoppingCart.getCart()).subscribe({
-      next: (cart) => (this.cart = cart),
-    });
+    this.subscription2 = (await this.shoppingCart.getCart()).subscribe(
+      (cart) => (this.cart = cart)
+    );
   }
 }

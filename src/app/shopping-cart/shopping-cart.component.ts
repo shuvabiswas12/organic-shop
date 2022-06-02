@@ -17,7 +17,9 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private shoppingCartService: ShoppingCartService) {}
 
-  getProductIds() {}
+  removeCart() {
+    this.shoppingCartService.removeAllItems();
+  }
 
   async ngOnInit() {
     let cart$ = await this.shoppingCartService.getCart();
@@ -27,11 +29,11 @@ export class ShoppingCartComponent implements OnInit {
 
         this.items = cart.items;
 
-        this.productIds = Object.keys(cart.items);
+        this.productIds = cart!.items ? Object.keys(cart.items) : [];
 
         //for (let productId in cart.items) {
-          // this.shoppingCartItemCount =
-          //   this.shoppingCartItemCount + cart.items[productId].quantity;
+        // this.shoppingCartItemCount =
+        //   this.shoppingCartItemCount + cart.items[productId].quantity;
         //}
 
         this.shoppingCartItemCount = cart.totalSelectedItemsCount;

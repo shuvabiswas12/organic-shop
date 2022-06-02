@@ -28,13 +28,16 @@
             ></app-change-product-quantity>
           </td>
           <td *ngIf="items[productId].quantity !== 0">
-            {{ items[productId].product.value.price | currency: "USD":true }} *
+            {{
+              items[productId].product.value.price | currency: "USD":"symbol"
+            }}
+            *
             {{ items[productId].quantity }}
 
             =
             {{
               items[productId].product.value.price * items[productId].quantity
-                | currency: "USD":true
+                | currency: "USD":"symbol"
             }}
           </td>
         </tr>
@@ -45,12 +48,18 @@
           <td>
             <h5>
               <span class="text-muted">{{
-                totalPrice | currency: "USD":true
+                totalPrice | currency: "USD":"symbol"
               }}</span>
             </h5>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <div>
+      <button (click)="removeCart()" class="btn btn-danger">
+        Clear shopping cart
+      </button>
+    </div>
   </div>
 </div>
