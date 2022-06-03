@@ -15,7 +15,6 @@ export class ProductCardComponent implements OnInit {
 
   getQuantity() {
     if (!this.shoppingCart) return 0;
-    console.log('Shopping cart', this.shoppingCart);
 
     if (this.shoppingCart?.items !== undefined) {
       let item = this.shoppingCart?.items[this.product.key];

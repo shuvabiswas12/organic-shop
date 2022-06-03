@@ -3,7 +3,7 @@
   <div class="card-body">
     <h5 class="card-title">{{ product.value.title }}</h5>
     <p class="card-text">
-      {{ product.value.price | currency: "USD":"code" }}
+      {{ product.value.price | currency: "USD":"symbol" }}
     </p>
     <app-change-product-quantity
       [product]="product"

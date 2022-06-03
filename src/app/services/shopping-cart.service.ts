@@ -1,9 +1,5 @@
-import { ShoppingCartItem } from './../models/shopping-cart-item';
 import { Observable } from 'rxjs/internal/Observable';
-import {
-  AngularFireDatabase,
-  AngularFireObject,
-} from '@angular/fire/compat/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/Product';
 import { take, map } from 'rxjs';
@@ -27,12 +23,11 @@ export class ShoppingCartService {
   }
 
   private async getOrCreatecartID(): Promise<string> {
-    let cartId = localStorage.getItem('cartId');
-
+    let cartId = await localStorage.getItem('cartId');
     if (cartId) return cartId;
 
     // create carts and return the cartID
-    let result = await this.create();
+    let result = this.create();
     localStorage.setItem('cartId', result.key || '');
     return result.key || '';
   }
@@ -53,7 +48,7 @@ export class ShoppingCartService {
     return this.db
       .object('/shopping-carts/' + cartID)
       .valueChanges()
-      .pipe(map((cart) => new ShoppingCart((cart as ShoppingCart).items)));
+      .pipe(map((cart) => new ShoppingCart((cart as any).items)));
 
     // this is how rich model works. if we have not write 'new ShoppingCart()' here
     // then rich model functionality will not work
