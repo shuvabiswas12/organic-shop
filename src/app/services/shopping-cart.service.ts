@@ -48,7 +48,12 @@ export class ShoppingCartService {
     return this.db
       .object('/shopping-carts/' + cartID)
       .valueChanges()
-      .pipe(map((cart) => new ShoppingCart((cart as any).items)));
+      .pipe(
+        map((cart: any) => {
+          const items = cart?.items ?? [];
+          return new ShoppingCart(items);
+        })
+      );
 
     // this is how rich model works. if we have not write 'new ShoppingCart()' here
     // then rich model functionality will not work
