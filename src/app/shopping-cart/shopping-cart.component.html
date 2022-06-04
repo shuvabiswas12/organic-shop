@@ -6,8 +6,13 @@
 </p>
 
 <div class="row" *ngIf="shoppingCartItemCount !== 0">
-  <p>You have {{ shoppingCartItemCount }} items in your shopping cart.</p>
-  <div class="col-7">
+  <p class="d-flex justify-content-between">
+    You have {{ shoppingCartItemCount }} items in your shopping cart.
+    <button (click)="removeCart()" class="btn btn-danger mx-2">
+      Clear shopping cart
+    </button>
+  </p>
+  <div class="col-12">
     <table class="table table-striped table-bordered">
       <thead>
         <tr>
@@ -18,16 +23,24 @@
       </thead>
       <tbody>
         <tr *ngFor="let productId of productIds">
-          <td *ngIf="items[productId].quantity !== 0">
-            {{ items[productId].product.value.title }}
+          <td>
+            <div class="d-flex justify-content-around">
+              <img
+                src="{{ items[productId].product.value.imageUrl }}"
+                alt=""
+                width="80px"
+                class="rounded"
+              />
+              <p class="h4">{{ items[productId].product.value.title }}</p>
+            </div>
           </td>
-          <td *ngIf="items[productId].quantity !== 0">
+          <td>
             <app-change-product-quantity
               [product]="items[productId].product"
               [quantity]="items[productId].quantity"
             ></app-change-product-quantity>
           </td>
-          <td *ngIf="items[productId].quantity !== 0">
+          <td>
             {{
               items[productId].product.value.price | currency: "USD":"symbol"
             }}
@@ -57,9 +70,7 @@
     </table>
 
     <div>
-      <button (click)="removeCart()" class="btn btn-danger">
-        Clear shopping cart
-      </button>
+      <a href="" class="btn btn-secondary"> Place your order </a>
     </div>
   </div>
 </div>
